@@ -2,17 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure P2P Chat</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<input id="msg" placeholder="Enter message" />
-<button id="sendBtn">Send</button>
-<br /><br />
-<button id="offerBtn">Create Offer</button>
-<button id="answerBtn">Answer Offer</button>
-<button id="setAnswerBtn">Set Remote Answer</button>
-
-<script type="module" src="index.ts"></script>
+    <div id="container">
+        <h1>Secure P2P Chat</h1>
+        <textarea id="messagelog" rows="20" readonly></textarea>
+        <div id="messageinput">
+            <input id="text" type="text" placeholder="Enter your message here">
+            <button id="sendmessage">Send</button>
+        </div>
+        <div id="controls">
+            <button id="clearmessages">Clear Messages</button>
+            <button id="changeuser">Change Username</button>
+            <button id="connect">Connect To</button>
+        </div>
+    </div>
+    <script type="module" src="index.ts"></script>
 </body>
 </html>
