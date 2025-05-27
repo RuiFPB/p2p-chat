@@ -14,14 +14,23 @@ peer.on('open', (id) => {
 
 peer.on('connection', (socket) => {
     conn = socket;
-    logMessage("Connected from " + socket.peer);
+    logMessage("Got connection from from " + socket.peer);
+    conn.on('open', openHandler)
     conn.on('data', dataHandler)
+    conn.on('error', (err) => {
+        console.error(err);
+    })
+    console.log(conn);
     ready = true;
 })
 
 function dataHandler(d : unknown) {
     let data = JSON.parse(d as string)
     logMessage(data.message, data.username);
+}
+
+function openHandler() {
+    logMessage("Connected to Peer");
 }
 
 function logMessage(message:string, from : string = "system") {
@@ -53,10 +62,17 @@ function connectTo() {
         logMessage("Connected to " + ip);
     })
     conn.on('data', dataHandler)
+    conn.on('error', (err) => {
+        console.error(err);
+    })
 }
 function sendMessage() {
     let message = (document.getElementById("text") as HTMLInputElement).value as string;
 
+    if (!conn.open) {
+        console.log("Connection is not open. Something went wrong.", conn)
+        return;
+    }
 
     if (ready) {
         console.log(JSON.stringify({ username: userName, message: message}))
