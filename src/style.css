@@ -23,18 +23,18 @@ body {
     border-radius: 15px;
     resize: none;
     width: 80%;
-    margin: 0 2vw;
+    margin: 0 0;
     color: black;
+}
+
+input {
+    padding: 1vh;
+    margin: 0.5vh;
+    border-radius: 15px;
 }
 
 #text {
     width: 70%;
-    padding: 1vh;
-    border-radius: 15px;
-}
-
-#controls, #messageinput {
-    margin-top: 2vh;
 }
 
 button {
