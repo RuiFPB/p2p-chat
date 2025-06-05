@@ -59,7 +59,7 @@ function resetPeer(_username: string) {
         conn.on('error', (err) => {
             console.error(err);
         })
-        console.log(conn);
+        //console.log(conn);
 
 
         ready = true;
@@ -67,7 +67,7 @@ function resetPeer(_username: string) {
 }
 
 async function ecdhCryptoHandler(d: unknown) {
-    console.log("ECDH CryptoHandler");
+    //console.log("ECDH CryptoHandler");
     let data = JSON.parse(d as string) as KeyExchangeInterface;
     const rawecdh = atob(data.ecdh as string);
     const ecdhKeyBytes = new Uint8Array(rawecdh.length);
@@ -84,7 +84,7 @@ async function ecdhCryptoHandler(d: unknown) {
 
     if (data.initiator) {
         conn.on('data', mlkemHandler);
-        console.log("Got from initiator", peermlkemPublicKey, peerECDHPublicKey)
+        //console.log("Got from initiator", peermlkemPublicKey, peerECDHPublicKey)
         const exportedKey = await crypto.subtle.exportKey('raw', ecdhKeyPair.publicKey);
         const keybase64 = btoa(String.fromCharCode(...new Uint8Array(exportedKey)));
         ecdhSharedSecret = await crypto.subtle.deriveBits({name: 'ECDH', public: peerECDHPublicKey}, ecdhKeyPair.privateKey, 256);
@@ -108,7 +108,7 @@ async function ecdhCryptoHandler(d: unknown) {
 }
 
 async function mlkemHandler(d: unknown) {
-    console.log("mlkem Handler")
+    //console.log("mlkem Handler")
     let rawdata = atob(d as string);
     let data = new Uint8Array(rawdata.length);
     for (let i = 0; i < rawdata.length; i++) {
@@ -155,7 +155,7 @@ async function combineSecrets() {
 async function dataHandler(d : unknown) {
     let data = JSON.parse(d as string)
 
-    console.log(data)
+    //console.log(data)
     const ciphertext = new Uint8Array(data.ciphertext).buffer;
     const iv = new Uint8Array(data.iv);
 
@@ -169,7 +169,7 @@ async function openHandler() {
     const exportedKey = await crypto.subtle.exportKey('raw', ecdhKeyPair.publicKey);
     const keybase64 = btoa(String.fromCharCode(...new Uint8Array(exportedKey)));
     conn.send(JSON.stringify(new KeyExchange(true, btoa(String.fromCharCode(...mlkemPublicKey)), keybase64)));
-    console.log("Sending keys...", mlkemPublicKey, exportedKey);
+    //console.log("Sending keys...", mlkemPublicKey, exportedKey);
 }
 
 // Converts a string to an ArrayBuffer
@@ -257,12 +257,12 @@ async function sendMessage() {
     let { ciphertext, iv } = await encryptMessage(sessionKey, message);
 
     if (!conn || !conn.open) {
-        console.log("Connection is not open. Something went wrong.", conn)
+        //console.log("Connection is not open. Something went wrong.", conn)
         return;
     }
 
     if (ready) {
-        console.log(JSON.stringify({ username: userName, message: message}))
+        //console.log(JSON.stringify({ username: userName, message: message}))
         conn.send(JSON.stringify({ username: userName, ciphertext: Array.from(new Uint8Array(ciphertext)), iv: Array.from(iv)}));
         logMessage(message, userName);
     }
