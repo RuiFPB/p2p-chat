@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "build-zip": "vite build && zip dist/pkg.zip dist/*.{html,css,js}"
+    "build-zip": "vite build && zip dist/pkg.zip dist/*.html dist/*.css dist/*.js"
   },
   "devDependencies": {
     "@types/webrtc": "^0.0.46",
