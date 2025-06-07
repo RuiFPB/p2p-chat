@@ -9,7 +9,7 @@ body {
     margin: auto;
     width: 40%;
     max-width: 900px;
-    padding: 2vh 2vw 10vh;
+    padding: 2vh 2vw;
     text-align: center;
     background: white;
     border-radius: 20px;
@@ -49,6 +49,25 @@ button {
 
 button:hover {
     background-color: darkgreen;
+}
+
+footer {
+    text-align: center;
+    font-size: small;
+    margin-top: 5vh;
+    color: #4f4f4fFF;
+}
+
+footer p {
+    margin: 0.2rem;
+}
+
+a:link, a:visited {
+    color: #4f4f4f;
+}
+
+a:hover, a:active {
+    color: #000000;
 }
 
 @media screen and (max-width: 800px) {
