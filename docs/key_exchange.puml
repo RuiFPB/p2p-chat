@@ -1,0 +1,33 @@
+@startuml
+
+header Secure P2P Chat
+title Key Exchange Sequence
+
+hide footbox
+
+participant Peer1 as P1
+participant Peer2 as P2
+
+note across: Keys pairs generated
+
+P1 -> P2 : Connection Request
+P1 <-- P2: Connection Accept
+P1 <- P2 : Send ECDH and MLKEM public keys
+P1 --> P2: Send ECDH and MLKEM public keys
+
+note across: Both generate ECDH shared key
+
+P2 -> P2: MLKEM encapsulation
+P1 <- P2: Encapsulated shared key for MLKEM
+P1 <- P1: MLKEM Decapsulation\n of shared key
+
+note across: Key combination with HKDF
+
+note across: Communications can begin using the combined\n shared key using AES-GCM 256 bit
+
+
+
+
+
+
+@enduml
